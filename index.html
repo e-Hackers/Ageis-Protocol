@@ -7,7 +7,6 @@
   <title>Aegis Protocol | Offensive Security</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" type="image/svg+xml">
   <style>
-    /* === DEEP-SPACE TACTICAL THEME === */
     :root {
       --bg: #090c14;
       --bg-dark: #04060c;
@@ -15,19 +14,15 @@
       --border: #1e293b;
       --text: #e0e7ff;
       --text-muted: #8892b0;
-      --primary: #4fc3f7; /* electric cyan */
+      --primary: #4fc3f7;
       --primary-glow: rgba(79, 195, 247, 0.3);
-      --accent: #ff5252; /* hazard red */
+      --accent: #ff5252;
       --accent-glow: rgba(255, 82, 82, 0.2);
       --success: #69f0ae;
       --terminal: #00e676;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Courier New', monospace;
@@ -38,7 +33,6 @@
       position: relative;
     }
 
-    /* Deep space particle background */
     body::before {
       content: '';
       position: fixed;
@@ -47,7 +41,6 @@
       z-index: -2;
     }
 
-    /* Animated particles */
     body::after {
       content: '';
       position: fixed;
@@ -61,7 +54,6 @@
       opacity: 0.15;
       z-index: -1;
       animation: drift 120s linear infinite;
-      transform: translateZ(0);
     }
 
     @keyframes drift {
@@ -311,9 +303,7 @@
       border-radius: 10px;
       padding: 2px;
       background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       opacity: 0;
@@ -599,25 +589,11 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.8rem;
-      }
-      .hero p {
-        font-size: 1.15rem;
-      }
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-      .nav {
-        flex-direction: column;
-        gap: 1.25rem;
-      }
-      .nav-links {
-        gap: 1.5rem;
-      }
-      .grid {
-        gap: 1.5rem;
-      }
+      .hero h1 { font-size: 2.8rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; gap: 1.25rem; }
+      .nav-links { gap: 1.5rem; }
+      .grid { gap: 1.5rem; }
     }
   </style>
 </head>
@@ -793,13 +769,12 @@
         <span style="color: var(--accent);">First step: Confidential scoping call.</span>
       </p>
 
-      <!-- ✅ NETLIFY FORM — FULLY CONFIGURED -->
-      <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <!-- ✅ NETLIFY FORM — FULLY WORKING -->
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="contact" />
-        <!-- Honeypot field -->
+        <!-- Honeypot spam protection -->
         <div style="display:none">
-          <label for="bot-field">Don’t fill this out (honeypot):</label>
-          <input type="text" name="bot-field" id="bot-field" />
+          <label>Don’t fill this out: <input name="bot-field" /></label>
         </div>
 
         <div class="form-row">
@@ -844,29 +819,29 @@
   </footer>
 
   <script>
-    // Auto-update year with fallback
     document.addEventListener('DOMContentLoaded', () => {
-      const yearEl = document.getElementById('year');
+      // Auto year
       const year = new Date().getFullYear();
+      const yearEl = document.getElementById('year');
       if (yearEl) yearEl.textContent = year;
 
       // Header scroll effect
       const header = document.getElementById('header');
       const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 50);
       window.addEventListener('scroll', onScroll);
-      onScroll(); // init
+      onScroll();
 
-      // Smooth scroll with better offset
+      // Smooth scroll with offset
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
           const targetId = this.getAttribute('href');
-          if (!targetId || targetId === '#') return;
           const target = document.querySelector(targetId);
           if (target) {
-            const offset = 80; // account for fixed header
-            const top = target.offsetTop - offset;
-            window.scrollTo({ top, behavior: 'smooth' });
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: 'smooth'
+            });
           }
         });
       });
@@ -888,14 +863,11 @@
       }
 
       // Scroll reveal
-      const observer = new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('appear');
-          }
+          if (entry.isIntersecting) entry.target.classList.add('appear');
         });
       }, { threshold: 0.1 });
-
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     });
   </script>
